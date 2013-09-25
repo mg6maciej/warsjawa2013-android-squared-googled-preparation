@@ -1,26 +1,34 @@
 package pl.warsjawa.android2;
 
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends BaseActivity {
+
+    private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         final DrawerLayout drawerLayout = findView(R.id.main_layout);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.app_name, R.string.app_name);
+        drawerLayout.setDrawerListener(toggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         Button button1 = findView(R.id.main_button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceInMainContainer(new MeetupsMapFragment());
+                replaceMainFragment(new MeetupsMapFragment());
                 drawerLayout.closeDrawers();
             }
         });
@@ -28,17 +36,31 @@ public class MainActivity extends BaseActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceInMainContainer(new Fragment());
+                replaceMainFragment(new Fragment());
                 drawerLayout.closeDrawers();
             }
         });
 
         if (savedInstanceState == null) {
-            replaceInMainContainer(new MeetupsMapFragment());
+            replaceMainFragment(new MeetupsMapFragment());
         }
     }
 
-    private void replaceInMainContainer(Fragment fragment) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        toggle.syncState();
+    }
+
+    private void replaceMainFragment(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tx = fm.beginTransaction();
         tx.replace(R.id.main_container, fragment);
