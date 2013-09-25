@@ -24,7 +24,7 @@ public class MeetupsMapFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        createMapFragment();
+        createMapFragmentIfNeeded();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class MeetupsMapFragment extends Fragment {
         setUpMapIfNeeded();
     }
 
-    private void createMapFragment() {
+    private void createMapFragmentIfNeeded() {
         FragmentManager fm = getChildFragmentManager();
         mapFragment = (SupportMapFragment) fm.findFragmentById(R.id.meetups_map_container);
         if (mapFragment == null) {
