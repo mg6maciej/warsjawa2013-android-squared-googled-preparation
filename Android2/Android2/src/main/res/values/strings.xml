@@ -2,5 +2,7 @@
 <resources>
 
     <string name="app_name">Android^2</string>
+    <string name="open_drawer">Open menu</string>
+    <string name="close_drawer">Close menu</string>
 
 </resources>

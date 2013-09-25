@@ -12,7 +12,7 @@
     <LinearLayout
         android:id="@+id/main_left_drawer"
         android:layout_gravity="left"
-        android:layout_width="300dp"
+        android:layout_width="@dimen/left_drawer_width"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
