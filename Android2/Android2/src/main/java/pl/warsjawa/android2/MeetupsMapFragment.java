@@ -8,9 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 
 public class MeetupsMapFragment extends Fragment {
+
+    private SupportMapFragment mapFragment;
+    private GoogleMap map;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -20,13 +24,36 @@ public class MeetupsMapFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        createMapFragment();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
+    }
+
+    private void createMapFragment() {
         FragmentManager fm = getChildFragmentManager();
-        Fragment f = fm.findFragmentById(R.id.meetups_map_container);
-        if (f == null) {
-            f = new SupportMapFragment();
+        mapFragment = (SupportMapFragment) fm.findFragmentById(R.id.meetups_map_container);
+        if (mapFragment == null) {
+            mapFragment = new SupportMapFragment();
             FragmentTransaction tx = fm.beginTransaction();
-            tx.add(R.id.meetups_map_container, f);
+            tx.add(R.id.meetups_map_container, mapFragment);
             tx.commit();
         }
+    }
+
+    private void setUpMapIfNeeded() {
+        if (map == null) {
+            map = mapFragment.getMap();
+            if (map != null) {
+                setUpMap();
+            }
+        }
+    }
+
+    private void setUpMap() {
+        
     }
 }
