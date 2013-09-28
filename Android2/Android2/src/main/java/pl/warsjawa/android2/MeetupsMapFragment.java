@@ -1,15 +1,24 @@
 package pl.warsjawa.android2;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
+
+import pl.warsjawa.android2.model.Group;
+import pl.warsjawa.android2.model.GroupList;
+import pl.warsjawa.android2.rest.GroupsClient;
+import retrofit.RestAdapter;
 
 public class MeetupsMapFragment extends Fragment {
 
@@ -54,6 +63,21 @@ public class MeetupsMapFragment extends Fragment {
     }
 
     private void setUpMap() {
-        
+        new AsyncTask<Void, Void, GroupList>() {
+            @Override
+            protected GroupList doInBackground(Void... voids) {
+                RestAdapter adapter = new RestAdapter.Builder().setServer("https://api.meetup.com").build();
+                GroupsClient client = adapter.create(GroupsClient.class);
+                GroupList list = client.getGroups("83622662", new PreferenceManager(getActivity()).getToken());
+                return list;
+            }
+
+            @Override
+            protected void onPostExecute(GroupList list) {
+                for (Group group : list.getResults()) {
+                    map.addMarker(new MarkerOptions().title(group.getName()).position(group.getLatLng()));
+                }
+            }
+        }.execute();
     }
 }
