@@ -25,13 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="pl.warsjawa.android2.AccessTokenAnalyzerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="warsjawa" android:host="android2" />
-            </intent-filter>
-        </activity>
+        <activity android:name="pl.warsjawa.android2.LoginActivity" />
         <activity android:name="pl.warsjawa.android2.MainActivity" />
 
         <meta-data
