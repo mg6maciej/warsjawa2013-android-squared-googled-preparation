@@ -28,6 +28,6 @@ public class BaseFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        bus.register(this);
+        bus.unregister(this);
     }
 }
