@@ -53,8 +53,8 @@ public class LoginActivity extends BaseActivity {
 
     private void handleLoggedOn(String url) {
         String token = getToken(url);
+        preferenceManager.saveToken(token);
         if (token != null) {
-            preferenceManager.saveToken(token);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
