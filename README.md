@@ -4,6 +4,30 @@ Prezentacje na warsztaty "Android^2" na warsjawa.pl.
 
 Oparte na Reveal.JS by Hakim El Hattab, http://hakim.se.
 
+
+## Treść
+
+* prezentacja główna (kim jesteśmy, co będziemy robić, kolejne kroki warsztatu)
+* o architekturze androidowych aplikacji
+* o Google Annotations Gallery ;)
+* o maps/location api
+* o android maps extensions (jeśli używamy, ja bym użył)
+* o retroficie, okhtml i picasso (można rozdzielić, ale w sumie są to bliskie frameworki)
+* o otto i wzorcu EventBus
+* o daggerze i wzorcu DependencyInjection
+
+
+## Konwencja
+
+tekst   -> html lub markdown, bez różnicy, ale fragmenty tylko z htmlem działają
+style   -> css/android2.css
+obrazki -> img/*.png
+
+poszczególne prezentacje w osobne [nazwa].html, a nawigację wewnątrzną zrobimy za pomocą linków -> tak będzie łatwiej żonglować kolejnością, coś omijać itp.
+
+
+## Instalacja
+
 Fragment oryginalnego README dotyczący instalacji:
 
 ## Installation
