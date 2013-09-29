@@ -81,6 +81,6 @@ public class MeetupsMapFragment extends BaseFragment {
             }
         };
 
-        meetupClient.getApi().getGroups("self", groupListCallback);
+        meetupClient.getMyGroups(groupListCallback);
     }
 }
