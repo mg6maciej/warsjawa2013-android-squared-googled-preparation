@@ -14,8 +14,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import javax.inject.Inject;
 
 import pl.warsjawa.android2.R;
-import pl.warsjawa.android2.model.Group;
-import pl.warsjawa.android2.model.GroupList;
+import pl.warsjawa.android2.model.Event;
+import pl.warsjawa.android2.model.EventList;
 import pl.warsjawa.android2.rest.MeetupClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -68,11 +68,11 @@ public class MeetupsMapFragment extends BaseFragment {
 
     private void setUpMap() {
 
-        Callback<GroupList> groupListCallback = new Callback<GroupList>() {
+        Callback<EventList> groupListCallback = new Callback<EventList>() {
             @Override
-            public void success(GroupList groupList, Response response) {
-                for (Group group : groupList.getResults()) {
-                    map.addMarker(new MarkerOptions().title(group.getName()).position(group.getLatLng()));
+            public void success(EventList eventList, Response response) {
+                for (Event event : eventList.getResults()) {
+                    map.addMarker(new MarkerOptions().title(event.getName()).snippet(event.getGroup().getName()).position(event.getVenue().getLatLng()));
                 }
             }
 
@@ -81,6 +81,6 @@ public class MeetupsMapFragment extends BaseFragment {
             }
         };
 
-        meetupClient.getMyGroups(groupListCallback);
+        meetupClient.getMyUpcomingEvents(groupListCallback);
     }
 }
