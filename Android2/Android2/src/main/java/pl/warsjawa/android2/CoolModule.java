@@ -2,6 +2,8 @@ package pl.warsjawa.android2;
 
 import android.content.Context;
 
+import com.squareup.otto.Bus;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -24,5 +26,11 @@ public class CoolModule {
     @Singleton
     Context providesContext() {
         return context;
+    }
+
+    @Provides
+    @Singleton
+    Bus providesBus() {
+        return new Bus();
     }
 }
