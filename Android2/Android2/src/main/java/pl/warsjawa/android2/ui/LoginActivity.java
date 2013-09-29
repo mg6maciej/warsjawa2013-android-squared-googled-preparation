@@ -12,7 +12,13 @@ import pl.warsjawa.android2.PreferenceManager;
 
 public class LoginActivity extends BaseActivity {
 
+    private static final String CLIENT_ID = "a7r6qufa5utub7l5m1eva4hsaa";
     private static final String REDIRECT_URL = "warsjawa://android2";
+    private static final String MEETUP_AUTHORIZE_URL = "https://secure.meetup.com/oauth2/authorize"
+            + "?client_id=" + CLIENT_ID
+            + "&response_type=token"
+            + "&redirect_uri=" + REDIRECT_URL
+            + "&set_mobile=on";
 
     @Inject
     PreferenceManager preferenceManager;
@@ -21,8 +27,19 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
+        WebView webView = prepareWebView();
+        setContentView(webView);
+    }
+
+    private WebView prepareWebView() {
         WebView webView = new WebView(this);
-        webView.setWebViewClient(new WebViewClient() {
+        webView.setWebViewClient(createWebViewClient());
+        webView.loadUrl(MEETUP_AUTHORIZE_URL);
+        return webView;
+    }
+
+    private WebViewClient createWebViewClient() {
+        return new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith(REDIRECT_URL)) {
@@ -31,13 +48,7 @@ public class LoginActivity extends BaseActivity {
                 }
                 return super.shouldOverrideUrlLoading(view, url);
             }
-        });
-        setContentView(webView);
-        webView.loadUrl("https://secure.meetup.com/oauth2/authorize"
-                + "?client_id=a7r6qufa5utub7l5m1eva4hsaa"
-                + "&response_type=token"
-                + "&redirect_uri=" + REDIRECT_URL
-                + "&set_mobile=on");
+        };
     }
 
     private void handleLoggedOn(String url) {
