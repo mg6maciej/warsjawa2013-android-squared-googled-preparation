@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {LauncherActivity.class, LoginActivity.class, MainActivity.class})
+@Module(injects = {LauncherActivity.class, LoginActivity.class, MainActivity.class, MeetupsMapFragment.class})
 public class CoolModule {
 
     private Context context;

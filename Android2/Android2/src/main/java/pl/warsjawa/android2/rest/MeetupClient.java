@@ -2,24 +2,21 @@ package pl.warsjawa.android2.rest;
 
 import com.squareup.okhttp.OkHttpClient;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import retrofit.ErrorHandler;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 
+@Singleton
 public class MeetupClient {
 
     private MeetupApi meetupApi;
 
-    private static class Loader {
-        static MeetupClient instance = new MeetupClient();
-    }
-
-    public static MeetupApi getApi() {
-        return Loader.instance.meetupApi;
-    }
-
-    private MeetupClient() {
+    @Inject
+    public MeetupClient() {
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setServer("https://api.meetup.com")
@@ -29,7 +26,9 @@ public class MeetupClient {
                 .build();
 
         meetupApi = restAdapter.create(MeetupApi.class);
-
     }
 
+    public MeetupApi getApi() {
+        return meetupApi;
+    }
 }
