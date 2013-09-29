@@ -12,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,7 @@ import pl.warsjawa.android2.PreferenceManager;
 import pl.warsjawa.android2.R;
 import pl.warsjawa.android2.model.Event;
 import pl.warsjawa.android2.model.EventList;
+import pl.warsjawa.android2.model.TheModel;
 import pl.warsjawa.android2.rest.MeetupClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -30,7 +32,7 @@ public class MeetupsMapFragment extends BaseFragment {
     private GoogleMap map;
 
     @Inject
-    MeetupClient meetupClient;
+    TheModel model;
     @Inject
     PreferenceManager preferenceManager;
 
@@ -79,21 +81,23 @@ public class MeetupsMapFragment extends BaseFragment {
 
     private void setUpMap() {
         restorePreviousPosition();
+        displayMyEvents();
+    }
 
-        Callback<EventList> groupListCallback = new Callback<EventList>() {
-            @Override
-            public void success(EventList eventList, Response response) {
-                for (Event event : eventList.getResults()) {
+    @Subscribe
+    public void onMyEventsUpdate(EventList myEventList) {
+        displayMyEvents();
+    }
+
+    private void displayMyEvents() {
+        if (isMapReady()) {
+            EventList myEvents = model.getEventList();
+            if (myEvents != null) {
+                for (Event event : myEvents.getResults()) {
                     map.addMarker(new MarkerOptions().title(event.getName()).snippet(event.getGroup().getName()).position(event.getVenue().getLatLng()));
                 }
             }
-
-            @Override
-            public void failure(RetrofitError error) {
-            }
-        };
-
-        meetupClient.getMyUpcomingEvents(groupListCallback);
+        }
     }
 
     private void restorePreviousPosition() {
