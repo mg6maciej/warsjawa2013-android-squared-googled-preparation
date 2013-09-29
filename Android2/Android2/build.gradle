@@ -25,7 +25,7 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:18.0.0'
     compile 'com.android.support:appcompat-v7:18.0.0'
-    compile 'com.google.android.gms:play-services:3.2.25'
+    compile 'com.google.android.gms:play-services:3.2.65'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.squareup.dagger:dagger:1.1.0'
     compile 'com.squareup.okhttp:okhttp:1.2.1'
