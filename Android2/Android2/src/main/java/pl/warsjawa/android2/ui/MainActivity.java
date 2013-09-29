@@ -1,4 +1,4 @@
-package pl.warsjawa.android2;
+package pl.warsjawa.android2.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -9,6 +9,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import pl.warsjawa.android2.R;
 
 public class MainActivity extends BaseActivity {
 

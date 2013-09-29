@@ -1,7 +1,6 @@
-package pl.warsjawa.android2;
+package pl.warsjawa.android2.ui;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 public class LauncherActivity extends BaseActivity {

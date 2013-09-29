@@ -6,6 +6,10 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import pl.warsjawa.android2.ui.LauncherActivity;
+import pl.warsjawa.android2.ui.LoginActivity;
+import pl.warsjawa.android2.ui.MainActivity;
+import pl.warsjawa.android2.ui.MeetupsMapFragment;
 
 @Module(injects = {LauncherActivity.class, LoginActivity.class, MainActivity.class, MeetupsMapFragment.class})
 public class CoolModule {

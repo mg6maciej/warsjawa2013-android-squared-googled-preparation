@@ -1,7 +1,9 @@
-package pl.warsjawa.android2;
+package pl.warsjawa.android2.ui;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
+
+import pl.warsjawa.android2.CoolApp;
 
 public class BaseFragment extends Fragment {
 

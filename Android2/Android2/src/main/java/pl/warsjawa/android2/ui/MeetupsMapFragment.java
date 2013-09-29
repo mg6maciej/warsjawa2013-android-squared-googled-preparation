@@ -1,4 +1,4 @@
-package pl.warsjawa.android2;
+package pl.warsjawa.android2.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import javax.inject.Inject;
 
+import pl.warsjawa.android2.R;
 import pl.warsjawa.android2.model.Group;
 import pl.warsjawa.android2.model.GroupList;
 import pl.warsjawa.android2.rest.MeetupClient;

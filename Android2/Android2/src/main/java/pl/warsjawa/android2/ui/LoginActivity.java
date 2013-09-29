@@ -1,18 +1,14 @@
-package pl.warsjawa.android2;
+package pl.warsjawa.android2.ui;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import java.net.URL;
-
 import javax.inject.Inject;
+
+import pl.warsjawa.android2.PreferenceManager;
 
 public class LoginActivity extends BaseActivity {
 
