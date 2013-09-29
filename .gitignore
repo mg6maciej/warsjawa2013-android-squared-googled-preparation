@@ -4,3 +4,5 @@ build/
 *.iml
 local.properties
 .DS_Store
+node-modules/
+*.sublime-*
