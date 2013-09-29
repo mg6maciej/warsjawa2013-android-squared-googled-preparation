@@ -2,34 +2,46 @@ package pl.warsjawa.android2.rest;
 
 import com.squareup.okhttp.OkHttpClient;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import pl.warsjawa.android2.PreferenceManager;
 import retrofit.ErrorHandler;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 
+@Singleton
 public class MeetupClient {
 
     private MeetupApi meetupApi;
 
-    private static class Loader {
-        static MeetupClient instance = new MeetupClient();
-    }
+    @Inject
+    PreferenceManager preferenceManager;
 
-    public static MeetupApi getApi() {
-        return Loader.instance.meetupApi;
-    }
-
-    private MeetupClient() {
+    @Inject
+    public MeetupClient() {
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setServer("https://api.meetup.com")
                 .setClient(new OkClient(new OkHttpClient()))
-                .setRequestInterceptor(RequestInterceptor.NONE)
+                .setRequestInterceptor(createRequestInterceptor())
                 .setErrorHandler(ErrorHandler.DEFAULT)
                 .build();
 
         meetupApi = restAdapter.create(MeetupApi.class);
-
     }
 
+    public MeetupApi getApi() {
+        return meetupApi;
+    }
+
+    private RequestInterceptor createRequestInterceptor() {
+        return new RequestInterceptor() {
+            @Override
+            public void intercept(RequestFacade requestFacade) {
+                requestFacade.addQueryParam("access_token", preferenceManager.getToken());
+            }
+        };
+    }
 }

@@ -12,9 +12,14 @@ import android.webkit.WebViewClient;
 
 import java.net.URL;
 
+import javax.inject.Inject;
+
 public class LoginActivity extends BaseActivity {
 
     private static final String REDIRECT_URL = "warsjawa://android2";
+
+    @Inject
+    PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +47,7 @@ public class LoginActivity extends BaseActivity {
     private void handleLoggedOn(String url) {
         String token = getToken(url);
         if (token != null) {
-            new PreferenceManager(this).saveToken(token);
+            preferenceManager.saveToken(token);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

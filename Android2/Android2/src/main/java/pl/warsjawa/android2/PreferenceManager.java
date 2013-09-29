@@ -3,6 +3,10 @@ package pl.warsjawa.android2;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class PreferenceManager {
 
     private static final String PREFS_NAME = "prefs";
@@ -10,6 +14,7 @@ public class PreferenceManager {
 
     private SharedPreferences prefs;
 
+    @Inject
     public PreferenceManager(Context context) {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
