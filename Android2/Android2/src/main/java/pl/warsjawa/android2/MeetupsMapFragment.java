@@ -80,6 +80,6 @@ public class MeetupsMapFragment extends BaseFragment {
             }
         };
 
-        meetupClient.getApi().getGroups("83622662", new PreferenceManager(getActivity()).getToken(), groupListCallback);
+        meetupClient.getApi().getGroups("83622662", groupListCallback);
     }
 }

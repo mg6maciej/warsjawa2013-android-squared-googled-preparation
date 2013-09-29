@@ -5,6 +5,7 @@ import com.squareup.okhttp.OkHttpClient;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import pl.warsjawa.android2.PreferenceManager;
 import retrofit.ErrorHandler;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -16,12 +17,15 @@ public class MeetupClient {
     private MeetupApi meetupApi;
 
     @Inject
+    PreferenceManager preferenceManager;
+
+    @Inject
     public MeetupClient() {
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setServer("https://api.meetup.com")
                 .setClient(new OkClient(new OkHttpClient()))
-                .setRequestInterceptor(RequestInterceptor.NONE)
+                .setRequestInterceptor(createRequestInterceptor())
                 .setErrorHandler(ErrorHandler.DEFAULT)
                 .build();
 
@@ -30,5 +34,14 @@ public class MeetupClient {
 
     public MeetupApi getApi() {
         return meetupApi;
+    }
+
+    private RequestInterceptor createRequestInterceptor() {
+        return new RequestInterceptor() {
+            @Override
+            public void intercept(RequestFacade requestFacade) {
+                requestFacade.addQueryParam("access_token", preferenceManager.getToken());
+            }
+        };
     }
 }

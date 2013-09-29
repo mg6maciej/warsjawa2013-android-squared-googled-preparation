@@ -8,5 +8,5 @@ import retrofit.http.Query;
 public interface MeetupApi {
 
     @GET("/2/groups")
-    void getGroups(@Query("member_id") String memberId, @Query("access_token") String token, Callback<GroupList> groupListCallback);
+    void getGroups(@Query("member_id") String memberId, Callback<GroupList> groupListCallback);
 }
