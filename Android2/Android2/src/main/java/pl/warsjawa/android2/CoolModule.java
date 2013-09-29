@@ -18,7 +18,7 @@ public class CoolModule {
 
     @Provides
     @Singleton
-    PreferenceManager providesPreferenceManager() {
-        return new PreferenceManager(context);
+    Context providesContext() {
+        return context;
     }
 }
