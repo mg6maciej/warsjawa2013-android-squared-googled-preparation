@@ -3,6 +3,9 @@ package pl.warsjawa.android2;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class PreferenceManager {
 
     private static final String PREFS_NAME = "prefs";
