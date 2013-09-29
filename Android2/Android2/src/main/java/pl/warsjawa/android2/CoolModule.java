@@ -2,12 +2,12 @@ package pl.warsjawa.android2;
 
 import android.content.Context;
 
-import com.squareup.otto.Bus;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import pl.warsjawa.android2.event.EventBus;
+import pl.warsjawa.android2.event.OttoEventBus;
 import pl.warsjawa.android2.ui.LauncherActivity;
 import pl.warsjawa.android2.ui.LoginActivity;
 import pl.warsjawa.android2.ui.MainActivity;
@@ -30,7 +30,7 @@ public class CoolModule {
 
     @Provides
     @Singleton
-    Bus providesBus() {
-        return new Bus();
+    EventBus providesBus() {
+        return new OttoEventBus();
     }
 }

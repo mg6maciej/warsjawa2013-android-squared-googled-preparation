@@ -3,16 +3,15 @@ package pl.warsjawa.android2.ui;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
-import com.squareup.otto.Bus;
-
 import javax.inject.Inject;
 
 import pl.warsjawa.android2.CoolApp;
+import pl.warsjawa.android2.event.EventBus;
 
 public class BaseFragment extends Fragment {
 
     @Inject
-    Bus bus;
+    EventBus bus;
 
     @Override
     public void onAttach(Activity activity) {

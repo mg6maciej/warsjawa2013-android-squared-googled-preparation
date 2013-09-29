@@ -4,16 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
-import com.squareup.otto.Bus;
-
 import javax.inject.Inject;
 
 import pl.warsjawa.android2.CoolApp;
+import pl.warsjawa.android2.event.EventBus;
 
 public class BaseActivity extends ActionBarActivity {
 
     @Inject
-    Bus bus;
+    EventBus bus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
