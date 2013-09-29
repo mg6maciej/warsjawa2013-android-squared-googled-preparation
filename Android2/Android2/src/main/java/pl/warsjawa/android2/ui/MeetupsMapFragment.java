@@ -7,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import javax.inject.Inject;
 
+import pl.warsjawa.android2.PreferenceManager;
 import pl.warsjawa.android2.R;
 import pl.warsjawa.android2.model.Event;
 import pl.warsjawa.android2.model.EventList;
@@ -28,6 +31,8 @@ public class MeetupsMapFragment extends BaseFragment {
 
     @Inject
     MeetupClient meetupClient;
+    @Inject
+    PreferenceManager preferenceManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +51,12 @@ public class MeetupsMapFragment extends BaseFragment {
         setUpMapIfNeeded();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        saveCurrentPosition();
+    }
+
     private void createMapFragmentIfNeeded() {
         FragmentManager fm = getChildFragmentManager();
         mapFragment = (SupportMapFragment) fm.findFragmentById(R.id.meetups_map_container);
@@ -58,15 +69,16 @@ public class MeetupsMapFragment extends BaseFragment {
     }
 
     private void setUpMapIfNeeded() {
-        if (map == null) {
+        if (!isMapReady()) {
             map = mapFragment.getMap();
-            if (map != null) {
+            if (isMapReady()) {
                 setUpMap();
             }
         }
     }
 
     private void setUpMap() {
+        restorePreviousPosition();
 
         Callback<EventList> groupListCallback = new Callback<EventList>() {
             @Override
@@ -82,5 +94,23 @@ public class MeetupsMapFragment extends BaseFragment {
         };
 
         meetupClient.getMyUpcomingEvents(groupListCallback);
+    }
+
+    private void restorePreviousPosition() {
+        CameraPosition previousPosition = preferenceManager.getMapPosition();
+        if (previousPosition != null) {
+            map.moveCamera(CameraUpdateFactory.newCameraPosition(previousPosition));
+        }
+    }
+
+    private void saveCurrentPosition() {
+        if (isMapReady()) {
+            CameraPosition currentPosition = map.getCameraPosition();
+            preferenceManager.saveMapPosition(currentPosition);
+        }
+    }
+
+    private boolean isMapReady() {
+        return map != null;
     }
 }
