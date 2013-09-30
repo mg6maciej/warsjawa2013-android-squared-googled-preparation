@@ -14,6 +14,11 @@ public class PreferenceManager {
 
     private static final String PREFS_NAME = "prefs";
     private static final String KEY_TOKEN = "token";
+    private static final String KEY_MAP_ZOOM = "map_zoom";
+    private static final String KEY_MAP_LATITUDE = "map_lat";
+    private static final String KEY_MAP_LONGITUDE = "map_lng";
+    private static final String KEY_MAP_BEARING = "map_bearing";
+    private static final String KEY_MAP_TILT = "map_tilt";
 
     private SharedPreferences prefs;
 
@@ -32,24 +37,29 @@ public class PreferenceManager {
 
     public CameraPosition getMapPosition() {
         CameraPosition position = null;
-        float zoom = prefs.getFloat("zoom", -1);
+        float zoom = prefs.getFloat(KEY_MAP_ZOOM, -1);
         if (zoom >= 0) {
-            double lat = prefs.getFloat("lat", 0);
-            double lng = prefs.getFloat("lng", 0);
-            float bearing = prefs.getFloat("bearing", 0);
-            float tilt = prefs.getFloat("tilt", 0);
-            position = CameraPosition.builder().target(new LatLng(lat, lng)).zoom(zoom).bearing(bearing).tilt(tilt).build();
+            double lat = prefs.getFloat(KEY_MAP_LATITUDE, 0);
+            double lng = prefs.getFloat(KEY_MAP_LONGITUDE, 0);
+            float bearing = prefs.getFloat(KEY_MAP_BEARING, 0);
+            float tilt = prefs.getFloat(KEY_MAP_TILT, 0);
+            position = CameraPosition.builder()
+                    .target(new LatLng(lat, lng))
+                    .zoom(zoom)
+                    .bearing(bearing)
+                    .tilt(tilt)
+                    .build();
         }
         return position;
     }
 
     public void saveMapPosition(CameraPosition position) {
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putFloat("lat", (float) position.target.latitude);
-        editor.putFloat("lng", (float) position.target.longitude);
-        editor.putFloat("zoom", position.zoom);
-        editor.putFloat("bearing", position.bearing);
-        editor.putFloat("tilt", position.tilt);
+        editor.putFloat(KEY_MAP_LATITUDE, (float) position.target.latitude);
+        editor.putFloat(KEY_MAP_LONGITUDE, (float) position.target.longitude);
+        editor.putFloat(KEY_MAP_ZOOM, position.zoom);
+        editor.putFloat(KEY_MAP_BEARING, position.bearing);
+        editor.putFloat(KEY_MAP_TILT, position.tilt);
         editor.apply();
     }
 }
