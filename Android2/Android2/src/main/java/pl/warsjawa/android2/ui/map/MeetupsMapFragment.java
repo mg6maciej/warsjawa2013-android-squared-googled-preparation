@@ -7,35 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
-import pl.warsjawa.android2.PreferenceManager;
 import pl.warsjawa.android2.R;
-import pl.warsjawa.android2.model.Event;
-import pl.warsjawa.android2.model.EventList;
-import pl.warsjawa.android2.model.TheModel;
-import pl.warsjawa.android2.rest.MeetupClient;
 import pl.warsjawa.android2.ui.BaseFragment;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public class MeetupsMapFragment extends BaseFragment {
 
     private SupportMapFragment mapFragment;
     private GoogleMap map;
 
-    @Inject
-    TheModel model;
-    @Inject
-    PreferenceManager preferenceManager;
+    @Inject MapPositionRestorer mapPositionRestorer;
+    @Inject MyEventsDisplayer eventsDisplayer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,13 +37,15 @@ public class MeetupsMapFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        eventsDisplayer.registerForMyEventsUpdate();
         setUpMapIfNeeded();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        saveCurrentPosition();
+        eventsDisplayer.unregisterFromMyEventsUpdate();
+        mapPositionRestorer.saveCurrentPosition();
     }
 
     private void createMapFragmentIfNeeded() {
@@ -72,50 +60,18 @@ public class MeetupsMapFragment extends BaseFragment {
     }
 
     private void setUpMapIfNeeded() {
-        if (!isMapReady()) {
+        if (map == null) {
             map = mapFragment.getMap();
-            if (isMapReady()) {
+            if (map != null) {
                 setUpMap();
             }
         }
     }
 
     private void setUpMap() {
-        restorePreviousPosition();
-        displayMyEvents();
-    }
-
-    @Subscribe
-    public void onMyEventsUpdate(EventList myEventList) {
-        displayMyEvents();
-    }
-
-    private void displayMyEvents() {
-        if (isMapReady()) {
-            EventList myEvents = model.getEventList();
-            if (myEvents != null) {
-                for (Event event : myEvents.getResults()) {
-                    map.addMarker(new MarkerOptions().title(event.getName()).snippet(event.getGroup().getName()).position(event.getVenue().getLatLng()));
-                }
-            }
-        }
-    }
-
-    private void restorePreviousPosition() {
-        CameraPosition previousPosition = preferenceManager.getMapPosition();
-        if (previousPosition != null) {
-            map.moveCamera(CameraUpdateFactory.newCameraPosition(previousPosition));
-        }
-    }
-
-    private void saveCurrentPosition() {
-        if (isMapReady()) {
-            CameraPosition currentPosition = map.getCameraPosition();
-            preferenceManager.saveMapPosition(currentPosition);
-        }
-    }
-
-    private boolean isMapReady() {
-        return map != null;
+        mapPositionRestorer.setMap(map);
+        mapPositionRestorer.restorePreviousPosition();
+        eventsDisplayer.setMap(map);
+        eventsDisplayer.displayMyEvents();
     }
 }
