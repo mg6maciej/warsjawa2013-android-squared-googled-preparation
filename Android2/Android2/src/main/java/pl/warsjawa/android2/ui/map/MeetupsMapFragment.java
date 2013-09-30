@@ -93,8 +93,7 @@ public class MeetupsMapFragment extends BaseFragment {
             public void success(RouteList routeList, Response response) {
                 PolylineOptions polylineOptions = new PolylineOptions();
                 for (Step step : routeList.getRoutes().get(0).getLegs().get(0).getSteps()) {
-                    String points = step.getPolyline().getPoints();
-                    List<LatLng> latLngList = PolyUtil.decode(points);
+                    List<LatLng> latLngList = step.getPolyline().toList();
                     polylineOptions.addAll(latLngList);
                 }
                 map.addPolyline(polylineOptions);
