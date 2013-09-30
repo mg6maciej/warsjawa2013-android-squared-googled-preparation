@@ -1,7 +1,7 @@
 package pl.warsjawa.android2.rest;
 
-import pl.warsjawa.android2.model.EventList;
-import pl.warsjawa.android2.model.GroupList;
+import pl.warsjawa.android2.model.meetup.EventList;
+import pl.warsjawa.android2.model.meetup.GroupList;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;

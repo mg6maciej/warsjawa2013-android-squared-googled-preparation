@@ -1,7 +1,4 @@
-package pl.warsjawa.android2.model;
-
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.squareup.otto.Produce;
+package pl.warsjawa.android2.model.meetup;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

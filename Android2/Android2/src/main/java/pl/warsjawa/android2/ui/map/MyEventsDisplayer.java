@@ -7,9 +7,9 @@ import com.squareup.otto.Subscribe;
 import javax.inject.Inject;
 
 import pl.warsjawa.android2.event.EventBus;
-import pl.warsjawa.android2.model.Event;
-import pl.warsjawa.android2.model.EventList;
-import pl.warsjawa.android2.model.TheModel;
+import pl.warsjawa.android2.model.meetup.Event;
+import pl.warsjawa.android2.model.meetup.EventList;
+import pl.warsjawa.android2.model.meetup.TheModel;
 
 public class MyEventsDisplayer {
 

@@ -1,4 +1,4 @@
-package pl.warsjawa.android2.model;
+package pl.warsjawa.android2.model.meetup;
 
 import java.util.List;
 

@@ -6,8 +6,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import pl.warsjawa.android2.PreferenceManager;
-import pl.warsjawa.android2.model.EventList;
-import pl.warsjawa.android2.model.GroupList;
+import pl.warsjawa.android2.model.meetup.EventList;
+import pl.warsjawa.android2.model.meetup.GroupList;
 import retrofit.Callback;
 import retrofit.ErrorHandler;
 import retrofit.RequestInterceptor;

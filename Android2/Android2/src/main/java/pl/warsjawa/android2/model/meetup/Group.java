@@ -1,4 +1,4 @@
-package pl.warsjawa.android2.model;
+package pl.warsjawa.android2.model.meetup;
 
 import com.google.android.gms.maps.model.LatLng;
 
