@@ -1,4 +1,4 @@
-package pl.warsjawa.android2.ui;
+package pl.warsjawa.android2.ui.map;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -22,6 +22,7 @@ import pl.warsjawa.android2.model.Event;
 import pl.warsjawa.android2.model.EventList;
 import pl.warsjawa.android2.model.TheModel;
 import pl.warsjawa.android2.rest.MeetupClient;
+import pl.warsjawa.android2.ui.BaseFragment;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;

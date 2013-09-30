@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import pl.warsjawa.android2.R;
+import pl.warsjawa.android2.ui.map.MeetupsMapFragment;
 
 public class MainActivity extends BaseActivity {
 

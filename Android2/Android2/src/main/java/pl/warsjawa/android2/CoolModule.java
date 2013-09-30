@@ -11,7 +11,7 @@ import pl.warsjawa.android2.event.OttoEventBus;
 import pl.warsjawa.android2.ui.LauncherActivity;
 import pl.warsjawa.android2.ui.LoginActivity;
 import pl.warsjawa.android2.ui.MainActivity;
-import pl.warsjawa.android2.ui.MeetupsMapFragment;
+import pl.warsjawa.android2.ui.map.MeetupsMapFragment;
 
 @Module(injects = {LauncherActivity.class, LoginActivity.class, MainActivity.class, MeetupsMapFragment.class})
 public class CoolModule {
