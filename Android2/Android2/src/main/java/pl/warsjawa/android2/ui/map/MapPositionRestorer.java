@@ -14,16 +14,11 @@ public class MapPositionRestorer {
     @Inject
     PreferenceManager preferenceManager;
 
-    public void setMap(GoogleMap map) {
+    public void restorePreviousPosition(GoogleMap map) {
         this.map = map;
-    }
-
-    public void restorePreviousPosition() {
-        if (map != null) {
-            CameraPosition previousPosition = preferenceManager.getMapPosition();
-            if (previousPosition != null) {
-                map.moveCamera(CameraUpdateFactory.newCameraPosition(previousPosition));
-            }
+        CameraPosition previousPosition = preferenceManager.getMapPosition();
+        if (previousPosition != null) {
+            map.moveCamera(CameraUpdateFactory.newCameraPosition(previousPosition));
         }
     }
 

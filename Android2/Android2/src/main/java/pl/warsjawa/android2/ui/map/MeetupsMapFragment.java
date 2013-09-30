@@ -69,9 +69,7 @@ public class MeetupsMapFragment extends BaseFragment {
     }
 
     private void setUpMap() {
-        mapPositionRestorer.setMap(map);
-        mapPositionRestorer.restorePreviousPosition();
-        eventsDisplayer.setMap(map);
-        eventsDisplayer.displayMyEvents();
+        mapPositionRestorer.restorePreviousPosition(map);
+        eventsDisplayer.setUpMap(map);
     }
 }

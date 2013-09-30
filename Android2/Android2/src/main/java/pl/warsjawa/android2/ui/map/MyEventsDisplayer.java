@@ -19,8 +19,9 @@ public class MyEventsDisplayer {
     @Inject
     EventBus bus;
 
-    public void setMap(GoogleMap map) {
+    public void setUpMap(GoogleMap map) {
         this.map = map;
+        displayMyEvents();
     }
 
     public void registerForMyEventsUpdate() {
@@ -36,7 +37,7 @@ public class MyEventsDisplayer {
         displayMyEvents();
     }
 
-    public void displayMyEvents() {
+    private void displayMyEvents() {
         if (map != null) {
             EventList myEvents = model.getEventList();
             if (myEvents != null) {
