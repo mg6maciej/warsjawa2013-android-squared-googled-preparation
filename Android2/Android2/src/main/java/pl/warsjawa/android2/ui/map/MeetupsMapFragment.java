@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.PolyUtil;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -83,13 +87,17 @@ public class MeetupsMapFragment extends BaseFragment {
     private void setUpMap() {
         mapPositionRestorer.restorePreviousPosition(map);
         eventsDisplayer.setUpMap(map);
-        // TODO: just for text, to be removed
+        // TODO: just for test, to be removed
         googleClient.getDirections(new LatLng(51, 19), new LatLng(51, 20), false, new Callback<RouteList>() {
             @Override
             public void success(RouteList routeList, Response response) {
+                PolylineOptions polylineOptions = new PolylineOptions();
                 for (Step step : routeList.getRoutes().get(0).getLegs().get(0).getSteps()) {
-                    Log.i("tag", "points: " + step.getPolyline().getPoints());
+                    String points = step.getPolyline().getPoints();
+                    List<LatLng> latLngList = PolyUtil.decode(points);
+                    polylineOptions.addAll(latLngList);
                 }
+                map.addPolyline(polylineOptions);
             }
 
             @Override
