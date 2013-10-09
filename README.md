@@ -17,6 +17,54 @@ Oparte na Reveal.JS by Hakim El Hattab, http://hakim.se.
 * o daggerze i wzorcu DependencyInjection
 
 
+## Zadania:
+
+0. Co robimy:
+* jakie najczęstsze typy aplikacji piszemy? dlaczego takie?
+* co szczególnego jest w platformach mobilnych?
+- refleksja papa
+- czas startu ma bardzo duże znaczenie
+- automatyczne zarządzanie pamięcią
+
+1. Architektura aplikacji:
+* jakie główne Activity możemy wydzielić?
+* jakie główne Fragmenty możemy wydzielić?
+* czy planujemy wykorzystać jakieś Servisy? jakie, dlaczego?
+* modularyzacja - jakie klasy nieandroidowe się nam przydadzą?
+* które klasy powinny być singletonami? które powinny mieć spięty czas życia?
+* jakie klasy powinniśmy wydzielić w podstawowych komponentach? 
+- lista: ListView-Adapter-DataSource-CellView
+- 
+
+2. Komunikacja między obiektami - EventBus:
+* jak skomunikować Activity z Fragmentem? a jak Service z Fragmentem?
+* w jaki sposób Fragmenty powinny rozmawiać między sobą?
+* jak skomunikować customowy View z innym customowym View?
+* listener vs eventbus - co zyskujemy, co tracimy?
+* dlaczego nie LocalBroadcastManager? czy jednolity interfejsu w komunikacji wewnątrz i na zewnątrz aplikacji ma sens?
+
+3. Modularyzacja - Dagger:
+* w jaki sposób będziemy zapewniać dostęp do modułów w różnych częściach aplikacji? singleton i getInstance()? Application jako globalny scope?
+* dlaczego warto korzystać z dependency injection?
+
+4. Narzędzia - OkHttp, Retrofit, Picasso:
+* 
+
+5. Możliwości - Maps API:
+* 
+
+
+## Timeboxing:
+
+13:30-14:45 - 
+14:45-15:15 - przerwa
+15:15-16:30 -
+16:30-17:00 - przerwa
+17:00-18:15 -
+18:15-18:45 - przerwa
+18:45-20:00 - 
+
+
 ## Konwencja
 
 tekst   -> html lub markdown, bez różnicy, ale fragmenty tylko z htmlem działają
