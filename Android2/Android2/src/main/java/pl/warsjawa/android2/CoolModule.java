@@ -13,7 +13,7 @@ import pl.warsjawa.android2.ui.LoginActivity;
 import pl.warsjawa.android2.ui.MainActivity;
 import pl.warsjawa.android2.ui.map.MeetupsMapFragment;
 
-@Module(injects = {LauncherActivity.class, LoginActivity.class, MainActivity.class, MeetupsMapFragment.class})
+@Module(injects = {LauncherActivity.class, LoginActivity.class, MainActivity.class, MeetupsMapFragment.class}, staticInjections = ParseInitializer.class)
 public class CoolModule {
 
     private Context context;

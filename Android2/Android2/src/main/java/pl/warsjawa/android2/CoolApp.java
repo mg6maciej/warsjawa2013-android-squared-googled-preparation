@@ -12,6 +12,7 @@ public class CoolApp extends Application {
     public void onCreate() {
         super.onCreate();
         graph = ObjectGraph.create(new CoolModule(this));
+        graph.injectStatics();
     }
 
     public void inject(Object obj) {
