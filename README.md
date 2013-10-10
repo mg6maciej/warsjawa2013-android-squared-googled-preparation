@@ -67,20 +67,20 @@ Oparte na Reveal.JS by Hakim El Hattab, http://hakim.se.
 
 ## Timeboxing:
 
-13:30-14:45 - 
-14:45-15:15 - przerwa
-15:15-16:30 -
-16:30-17:00 - przerwa
-17:00-18:15 -
-18:15-18:45 - przerwa
-18:45-20:00 - 
+* 13:30-14:45 - 
+* 14:45-15:15 - przerwa
+* 15:15-16:30 -
+* 16:30-17:00 - przerwa
+* 17:00-18:15 -
+* 18:15-18:45 - przerwa
+* 18:45-20:00 - 
 
 
 ## Konwencja
 
-tekst   -> html lub markdown, bez różnicy, ale fragmenty tylko z htmlem działają
-style   -> css/android2.css
-obrazki -> img/*.png
+* tekst   -> html lub markdown, bez różnicy, ale fragmenty tylko z htmlem działają
+* style   -> css/android2.css
+* obrazki -> img/*.png
 
 poszczególne prezentacje w osobne [nazwa].html, a nawigację wewnątrzną zrobimy za pomocą linków -> tak będzie łatwiej żonglować kolejnością, coś omijać itp.
 
