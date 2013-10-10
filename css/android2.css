@@ -6,3 +6,24 @@
 .reveal .slides .warsjawa a {
   color: white;
 }
+
+.reveal .slides .warsjawa .comment {
+  color: gray;
+}
+
+.reveal .slides .android h1 {
+  color: #A2C24F;
+}
+
+.reveal .slides .android h3 {
+  color: gray;
+}
+
+.reveal .slides .android p {
+  color: #A2C24F;
+}
+
+.reveal .slides .requirements li {
+  font-size: 20px;
+  line-height: 20px;
+}

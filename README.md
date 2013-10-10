@@ -5,9 +5,18 @@ Prezentacje na warsztaty "Android^2" na warsjawa.pl.
 Oparte na Reveal.JS by Hakim El Hattab, http://hakim.se.
 
 
+## Feedback z Touk edition:
+
+* nie można polegać na tym, że ludzie będą aktywnie uczestniczyć - trzema mieć plan pt. "kodujemy na ekranie i opowiadamy"
+* już teraz mamy bardzo dużo materiału i warto raczej ograniczać, niż rozszerzać - myślę, że poradzimy sobie z tym ucinając kodowanie nudnych rzeczy przeklejaniem
+* nie możemy polegać na tym, że wszyscy uczestnicy będą mieli doświadczenie w androidzie - krótki wstęp powinien być
+* warto skupić się na używaniu bibliotek, a bebechy pokazywać tylko w ramach pytań, bo to dla wielu osób mało interesujące
+* skoro pokazujemy konkretne biblioteki, to może warto o alternatywach tylko wspomnieć, a nie robić szerszego porównania
+
+
 ## Treść
 
-* prezentacja główna (kim jesteśmy, co będziemy robić, kolejne kroki warsztatu)
+* prezentacja główna (kim jesteśmy, co będziemy robić, kolejne kroki warsztatu, sprawy organizacyjne)
 * o architekturze androidowych aplikacji
 * o Google Annotations Gallery ;)
 * o maps/location api
@@ -21,10 +30,12 @@ Oparte na Reveal.JS by Hakim El Hattab, http://hakim.se.
 
 0. Co robimy:
 * jakie najczęstsze typy aplikacji piszemy? dlaczego takie?
-* co szczególnego jest w platformach mobilnych?
-- refleksja papa
+* co szczególnego jest w Androidzie?
+- refleksji mniej
 - czas startu ma bardzo duże znaczenie
 - automatyczne zarządzanie pamięcią
+- programiści rzadko stosują sprawdzone zasady z enterprise 
+(poniekąd przez brak tych zasad w dokumentacji)
 
 1. Architektura aplikacji:
 * jakie główne Activity możemy wydzielić?
@@ -34,7 +45,7 @@ Oparte na Reveal.JS by Hakim El Hattab, http://hakim.se.
 * które klasy powinny być singletonami? które powinny mieć spięty czas życia?
 * jakie klasy powinniśmy wydzielić w podstawowych komponentach? 
 - lista: ListView-Adapter-DataSource-CellView
-- 
+- lista: adapter adapterów
 
 2. Komunikacja między obiektami - EventBus:
 * jak skomunikować Activity z Fragmentem? a jak Service z Fragmentem?
