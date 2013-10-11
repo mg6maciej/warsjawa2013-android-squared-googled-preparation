@@ -14,4 +14,9 @@ public class Venue {
     public LatLng getLatLng() {
         return new LatLng(lat, lon);
     }
+
+    public boolean compareLatLng(LatLng another) {
+        return (lat == another.latitude && lon == another.longitude);
+    }
+
 }

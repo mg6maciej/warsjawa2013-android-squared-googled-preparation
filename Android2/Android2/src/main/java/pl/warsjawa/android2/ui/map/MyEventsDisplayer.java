@@ -1,40 +1,35 @@
 package pl.warsjawa.android2.ui.map;
 
 import android.util.Log;
+import android.util.Pair;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.otto.Subscribe;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Scanner;
-
 import javax.inject.Inject;
 
 import pl.warsjawa.android2.event.EventBus;
+import pl.warsjawa.android2.model.gmapsapi.GmapsModel;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlace;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlacesList;
 import pl.warsjawa.android2.model.meetup.Event;
 import pl.warsjawa.android2.model.meetup.EventList;
-import pl.warsjawa.android2.model.meetup.TheModel;
-import pl.warsjawa.android2.rest.GoogleClient;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import pl.warsjawa.android2.model.meetup.MeetupModel;
 
 public class MyEventsDisplayer {
 
     private GoogleMap map;
     @Inject
-    TheModel model;
+    MeetupModel model;
     @Inject
     EventBus bus;
     @Inject
-    GoogleClient googleClient;
+    GmapsModel gmapsModel;
 
     public void setUpMap(final GoogleMap map) {
         this.map = map;
@@ -42,21 +37,13 @@ public class MyEventsDisplayer {
             @Override
             public void onInfoWindowClick(Marker marker) {
                 Log.i("tag", "marker = " + marker.getPosition());
-                // TODO: temp, move to services
-                googleClient.requestNearbyPlaces(marker.getPosition(), 500, new Callback<NearbyPlacesList>() {
-                    @Override
-                    public void success(NearbyPlacesList nearbyPlacesList, Response response) {
-                        for (NearbyPlace place : nearbyPlacesList.getResults()) {
-                            BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
-                            map.addMarker(new MarkerOptions().position(place.getLocation()).title(place.getName()).icon(icon));
-                        }
-                    }
-
-                    @Override
-                    public void failure(RetrofitError retrofitError) {
-
-                    }
-                });
+                NearbyPlacesList nearbyPlacesList = gmapsModel.getNearbyPlacesList(marker.getPosition());
+                if (nearbyPlacesList == null) {
+                    displayNearbyPlaces(marker.getPosition());
+                }
+                else {
+                    gmapsModel.requestNearbyPlacesList(marker.getPosition());
+                }
             }
         });
         displayMyEvents();
@@ -75,6 +62,11 @@ public class MyEventsDisplayer {
         displayMyEvents();
     }
 
+    @Subscribe
+    public void onNearbyPlacesUpdate(Pair<LatLng,NearbyPlacesList> places) {
+        displayNearbyPlaces(places.first);
+    }
+
     private void displayMyEvents() {
         if (map != null) {
             EventList myEvents = model.getEventList();
@@ -82,6 +74,16 @@ public class MyEventsDisplayer {
                 for (Event event : myEvents.getResults()) {
                     map.addMarker(new MarkerOptions().title(event.getName()).snippet(event.getGroup().getName()).position(event.getVenue().getLatLng()));
                 }
+            }
+        }
+    }
+
+    private void displayNearbyPlaces(LatLng position) {
+        BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
+        NearbyPlacesList nearbyPlacesList = gmapsModel.getNearbyPlacesList(position);
+        if (nearbyPlacesList != null) {
+            for (NearbyPlace place : nearbyPlacesList.getResults()) {
+                map.addMarker(new MarkerOptions().position(place.getLocation()).title(place.getName()).icon(icon));
             }
         }
     }

@@ -4,20 +4,22 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import pl.warsjawa.android2.event.EventBus;
+import pl.warsjawa.android2.model.gmapsapi.RouteList;
+import pl.warsjawa.android2.rest.GoogleClient;
 import pl.warsjawa.android2.rest.MeetupClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 @Singleton
-public class TheModel {
+public class MeetupModel {
 
     private final EventBus bus;
     private final MeetupClient meetupClient;
     private EventList myEventList;
 
     @Inject
-    public TheModel(EventBus bus, MeetupClient meetupClient) {
+    public MeetupModel(EventBus bus, MeetupClient meetupClient) {
         this.bus = bus;
         this.meetupClient = meetupClient;
     }

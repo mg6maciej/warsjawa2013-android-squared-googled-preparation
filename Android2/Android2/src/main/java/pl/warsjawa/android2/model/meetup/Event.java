@@ -1,6 +1,6 @@
 package pl.warsjawa.android2.model.meetup;
 
-public class Event {
+public class Event  {
 
     private Group group;
     private String name;
@@ -19,4 +19,5 @@ public class Event {
     public Venue getVenue() {
         return venue;
     }
+
 }

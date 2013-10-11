@@ -15,4 +15,5 @@ public class Group {
     public LatLng getLatLng() {
         return new LatLng(lat, lon);
     }
+
 }
