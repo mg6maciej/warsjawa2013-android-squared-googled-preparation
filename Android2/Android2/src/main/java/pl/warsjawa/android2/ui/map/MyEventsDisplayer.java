@@ -51,6 +51,7 @@ public class MyEventsDisplayer {
 
     public void registerForMyEventsUpdate() {
         bus.register(this);
+        displayMyEvents();
     }
 
     public void unregisterFromMyEventsUpdate() {
