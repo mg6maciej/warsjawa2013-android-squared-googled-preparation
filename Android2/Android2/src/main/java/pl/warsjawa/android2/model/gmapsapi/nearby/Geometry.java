@@ -1,4 +1,6 @@
-package pl.warsjawa.android2.model.gmapsapi;
+package pl.warsjawa.android2.model.gmapsapi.nearby;
+
+import pl.warsjawa.android2.model.gmapsapi.Coords;
 
 public class Geometry {
 

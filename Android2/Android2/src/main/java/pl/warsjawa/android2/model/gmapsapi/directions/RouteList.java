@@ -1,4 +1,4 @@
-package pl.warsjawa.android2.model.gmapsapi;
+package pl.warsjawa.android2.model.gmapsapi.directions;
 
 import java.util.List;
 

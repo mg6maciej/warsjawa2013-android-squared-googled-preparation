@@ -1,8 +1,6 @@
 package pl.warsjawa.android2.rest;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import pl.warsjawa.android2.model.gmapsapi.RouteList;
+import pl.warsjawa.android2.model.gmapsapi.directions.RouteList;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlacesList;
 import retrofit.Callback;
 import retrofit.http.GET;
