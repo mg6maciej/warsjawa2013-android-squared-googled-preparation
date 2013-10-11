@@ -45,6 +45,9 @@ public class GmapsModel {
             };
             googleClient.requestNearbyPlaces(position, 500, groupListCallback);
         }
+        else {
+            bus.post(new Pair<LatLng,NearbyPlacesList>(position, nearbyPlacesList));
+        }
     }
 
     public NearbyPlacesList getNearbyPlacesList(LatLng position) {
