@@ -1,5 +1,7 @@
 package pl.warsjawa.android2.model.meetup;
 
+import com.squareup.otto.Produce;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -40,4 +42,5 @@ public class MeetupModel {
         }
         return myEventList;
     }
+
 }

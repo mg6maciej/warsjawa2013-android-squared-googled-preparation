@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import pl.warsjawa.android2.R;
+import pl.warsjawa.android2.ui.list.MeetupListFragment;
 import pl.warsjawa.android2.ui.map.MeetupsMapFragment;
 
 public class MainActivity extends BaseActivity {
@@ -40,7 +41,7 @@ public class MainActivity extends BaseActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceMainFragment(new Fragment());
+                replaceMainFragment(new MeetupListFragment());
                 drawerLayout.closeDrawers();
             }
         });

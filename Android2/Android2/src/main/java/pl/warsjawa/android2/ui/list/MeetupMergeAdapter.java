@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlace;
+import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlacesList;
 import pl.warsjawa.android2.model.meetup.Event;
 
 /**
@@ -20,13 +21,15 @@ import pl.warsjawa.android2.model.meetup.Event;
 class MeetupMergeAdapter extends BaseAdapter {
 
     private boolean expanded;
-    private MeetupEventItem eventItem;
     private List<ItemAdapter<?>> data = new ArrayList<ItemAdapter<?>>(1);
     private LayoutInflater inflater;
     private static final int TYPE_COUNT = 3;
 
     MeetupMergeAdapter(LayoutInflater inflater, Object obj) {
         this.inflater = inflater;
+        if (data.isEmpty()) {
+            data.add(new MeetupEventAdapter(null));
+        }
         updateData(obj);
     }
 
@@ -39,15 +42,13 @@ class MeetupMergeAdapter extends BaseAdapter {
 
             data.set(0, new MeetupEventAdapter((Event) obj));
 
-        } else if (obj instanceof List
-            && ((List) obj).size() > 0
-            && ((List) obj).get(0) instanceof NearbyPlace) {
+        } else if (obj instanceof NearbyPlacesList) {
 
-            for (NearbyPlace nearbyPlace : ((List<NearbyPlace>) obj)) {
+            for (NearbyPlace nearbyPlace : ((NearbyPlacesList) obj).getResults()) {
                 data.add(new MeetupNearbyPlaceAdapter(nearbyPlace));
             }
 
-        } else if (data == null) {
+        } else if (obj == null) {
 
             data.add(new MeetupLoadingAdapter());
 
@@ -94,11 +95,7 @@ class MeetupMergeAdapter extends BaseAdapter {
         return data.get(position).isEnabled();
     }
 
-    public void expand() {
-        expanded = true;
-    }
-
-    public void collapse() {
-        expanded = false;
+    public void toogleExpand() {
+        expanded = !expanded;
     }
 }

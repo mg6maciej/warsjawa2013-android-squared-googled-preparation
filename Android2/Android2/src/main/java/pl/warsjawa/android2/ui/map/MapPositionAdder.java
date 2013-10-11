@@ -33,7 +33,7 @@ public class MapPositionAdder implements GoogleMap.OnMapLongClickListener {
 
     @Override
     public void onMapLongClick(LatLng latLng) {
-//        parseClient.addLocation(latLng);
+        parseClient.addLocation(latLng);
         createMarker(latLng);
     }
 

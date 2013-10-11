@@ -16,7 +16,7 @@ public class Venue {
     }
 
     public boolean compareLatLng(LatLng another) {
-        return (lat == another.latitude && lon == another.longitude);
+        return (Math.abs(lat - another.latitude) < 0.0001 && Math.abs(lon - another.longitude) < 0.0001);
     }
 
 }

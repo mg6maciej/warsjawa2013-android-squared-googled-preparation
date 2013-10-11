@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import pl.warsjawa.android2.model.meetup.Event;
 
@@ -12,7 +13,7 @@ import pl.warsjawa.android2.model.meetup.Event;
 */
 class MeetupLoadingAdapter implements ItemAdapter<String> {
 
-    private static final int TYPE = 2;
+    private static final int TYPE = 1;
     private static final String string = "Loading...";
 
     @Override
@@ -37,6 +38,21 @@ class MeetupLoadingAdapter implements ItemAdapter<String> {
 
     @Override
     public View getView(LayoutInflater inflater, View convertView, ViewGroup parent) {
+        Holder holder;
+        if (!(convertView instanceof MeetupEventItem)) {
+            convertView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            holder = new Holder();
+            holder.textView1 = (TextView) convertView.findViewById(android.R.id.text1);
+            convertView.setTag(holder);
+        } else {
+            holder = (Holder) convertView.getTag();
+        }
+        holder.textView1.setText(string);
         return convertView;
+    }
+
+
+    private static class Holder {
+        private TextView textView1;
     }
 }

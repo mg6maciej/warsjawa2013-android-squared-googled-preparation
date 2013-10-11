@@ -39,10 +39,10 @@ public class MyEventsDisplayer {
                 Log.i("tag", "marker = " + marker.getPosition());
                 NearbyPlacesList nearbyPlacesList = gmapsModel.getNearbyPlacesList(marker.getPosition());
                 if (nearbyPlacesList == null) {
-                    displayNearbyPlaces(marker.getPosition());
+                    gmapsModel.requestNearbyPlacesList(marker.getPosition());
                 }
                 else {
-                    gmapsModel.requestNearbyPlacesList(marker.getPosition());
+                    displayNearbyPlaces(marker.getPosition());
                 }
             }
         });
