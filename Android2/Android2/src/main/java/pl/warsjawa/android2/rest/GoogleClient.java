@@ -8,15 +8,13 @@ import java.util.Locale;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import pl.warsjawa.android2.model.gmapsapi.RouteList;
+import pl.warsjawa.android2.model.gmapsapi.directions.RouteList;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlacesList;
 import retrofit.Callback;
 import retrofit.ErrorHandler;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
-import retrofit.http.GET;
-import retrofit.http.Query;
 
 @Singleton
 public class GoogleClient {

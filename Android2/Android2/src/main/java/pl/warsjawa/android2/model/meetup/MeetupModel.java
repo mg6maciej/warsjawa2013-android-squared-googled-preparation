@@ -6,8 +6,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import pl.warsjawa.android2.event.EventBus;
-import pl.warsjawa.android2.model.gmapsapi.RouteList;
-import pl.warsjawa.android2.rest.GoogleClient;
 import pl.warsjawa.android2.rest.MeetupClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;

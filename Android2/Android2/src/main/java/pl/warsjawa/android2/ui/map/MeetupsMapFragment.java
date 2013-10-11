@@ -3,7 +3,6 @@ package pl.warsjawa.android2.ui.map;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.maps.android.PolyUtil;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import pl.warsjawa.android2.R;
-import pl.warsjawa.android2.model.gmapsapi.RouteList;
-import pl.warsjawa.android2.model.gmapsapi.Step;
+import pl.warsjawa.android2.model.gmapsapi.directions.RouteList;
+import pl.warsjawa.android2.model.gmapsapi.directions.Step;
 import pl.warsjawa.android2.rest.GoogleClient;
 import pl.warsjawa.android2.ui.BaseFragment;
 import retrofit.Callback;
