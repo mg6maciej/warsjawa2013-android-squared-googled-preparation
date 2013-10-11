@@ -20,7 +20,7 @@ import pl.warsjawa.android2.model.meetup.Event;
 */
 class MeetupMergeAdapter extends BaseAdapter {
 
-    private boolean expanded;
+    private boolean expanded = false;
     private List<ItemAdapter<?>> data = new ArrayList<ItemAdapter<?>>(1);
     private LayoutInflater inflater;
     private static final int TYPE_COUNT = 3;
