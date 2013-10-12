@@ -25,32 +25,39 @@ public class MainActivity extends BaseActivity {
 
         final DrawerLayout drawerLayout = findView(R.id.main_layout);
         if (drawerLayout != null) {
-            toggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.open_drawer, R.string.close_drawer);
-            drawerLayout.setDrawerListener(toggle);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
-
-            Button button1 = findView(R.id.main_button1);
-            button1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    replaceMainFragment(new MeetupsMapFragment());
-                    drawerLayout.closeDrawers();
-                }
-            });
-            Button button2 = findView(R.id.main_button2);
-            button2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    replaceMainFragment(new MeetupListFragment());
-                    drawerLayout.closeDrawers();
-                }
-            });
+            initDrawerToggle(drawerLayout);
+            initClickListeners(drawerLayout);
 
             if (savedInstanceState == null) {
                 replaceMainFragment(new MeetupsMapFragment());
             }
         }
+    }
+
+    private void initDrawerToggle(DrawerLayout drawerLayout) {
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.open_drawer, R.string.close_drawer);
+        drawerLayout.setDrawerListener(toggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    private void initClickListeners(final DrawerLayout drawerLayout) {
+        Button button1 = findView(R.id.main_button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceMainFragment(new MeetupsMapFragment());
+                drawerLayout.closeDrawers();
+            }
+        });
+        Button button2 = findView(R.id.main_button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceMainFragment(new MeetupListFragment());
+                drawerLayout.closeDrawers();
+            }
+        });
     }
 
     @Override
