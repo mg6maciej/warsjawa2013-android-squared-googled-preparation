@@ -24,36 +24,38 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.main);
 
         final DrawerLayout drawerLayout = findView(R.id.main_layout);
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.open_drawer, R.string.close_drawer);
-        drawerLayout.setDrawerListener(toggle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        if (drawerLayout != null) {
+            toggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.open_drawer, R.string.close_drawer);
+            drawerLayout.setDrawerListener(toggle);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
 
-        Button button1 = findView(R.id.main_button1);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            Button button1 = findView(R.id.main_button1);
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    replaceMainFragment(new MeetupsMapFragment());
+                    drawerLayout.closeDrawers();
+                }
+            });
+            Button button2 = findView(R.id.main_button2);
+            button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    replaceMainFragment(new MeetupListFragment());
+                    drawerLayout.closeDrawers();
+                }
+            });
+
+            if (savedInstanceState == null) {
                 replaceMainFragment(new MeetupsMapFragment());
-                drawerLayout.closeDrawers();
             }
-        });
-        Button button2 = findView(R.id.main_button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                replaceMainFragment(new MeetupListFragment());
-                drawerLayout.closeDrawers();
-            }
-        });
-
-        if (savedInstanceState == null) {
-            replaceMainFragment(new MeetupsMapFragment());
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (toggle.onOptionsItemSelected(item)) {
+        if (toggle != null && toggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -62,7 +64,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        toggle.syncState();
+        if (toggle != null) {
+            toggle.syncState();
+        }
     }
 
     private void replaceMainFragment(Fragment fragment) {

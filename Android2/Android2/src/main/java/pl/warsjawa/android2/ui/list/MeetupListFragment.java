@@ -18,6 +18,7 @@ import pl.warsjawa.android2.event.EventBus;
 import pl.warsjawa.android2.model.gmapsapi.GmapsModel;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlacesList;
 import pl.warsjawa.android2.model.meetup.MeetupEvent;
+import pl.warsjawa.android2.model.meetup.MeetupEventList;
 import pl.warsjawa.android2.model.meetup.MeetupModel;
 import pl.warsjawa.android2.ui.BaseFragment;
 
@@ -61,7 +62,11 @@ public class MeetupListFragment extends BaseFragment {
             }
         });
         meetupListAdapter = new MeetupListAdapter(context);
-        meetupListAdapter.onEventListUpdate(meetupModel.getEventList());
+        // TODO: this was incorrect and probably should not be here
+        MeetupEventList eventList = meetupModel.getEventList();
+        if (eventList != null) {
+            meetupListAdapter.onEventListUpdate(eventList);
+        }
         meetupsListView.setAdapter(meetupListAdapter);
     }
 
