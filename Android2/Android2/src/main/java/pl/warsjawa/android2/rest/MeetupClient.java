@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import pl.warsjawa.android2.PreferenceManager;
-import pl.warsjawa.android2.model.meetup.EventList;
+import pl.warsjawa.android2.model.meetup.MeetupEventList;
 import pl.warsjawa.android2.model.meetup.GroupList;
 import retrofit.Callback;
 import retrofit.ErrorHandler;
@@ -35,7 +35,7 @@ public class MeetupClient {
         meetupApi = restAdapter.create(MeetupApi.class);
     }
 
-    public void getMyUpcomingEvents(Callback<EventList> callback) {
+    public void getMyUpcomingEvents(Callback<MeetupEventList> callback) {
         meetupApi.getEvents("self", callback);
     }
 

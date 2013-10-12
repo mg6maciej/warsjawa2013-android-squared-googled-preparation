@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -15,8 +14,8 @@ import java.util.List;
 
 import pl.warsjawa.android2.event.EventBus;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlacesList;
-import pl.warsjawa.android2.model.meetup.Event;
-import pl.warsjawa.android2.model.meetup.EventList;
+import pl.warsjawa.android2.model.meetup.MeetupEvent;
+import pl.warsjawa.android2.model.meetup.MeetupEventList;
 
 /**
 * Created by krzysztofsiejkowski on 10/6/13.
@@ -60,16 +59,16 @@ class MeetupListAdapter extends BaseAdapter {
     }
 
     @Subscribe
-    public void onEventListUpdate(EventList eventList) {
+    public void onEventListUpdate(MeetupEventList eventList) {
         data.clear();
-        for (Event event : eventList.getResults()) {
+        for (MeetupEvent event : eventList.getResults()) {
             data.add(new MeetupMergeAdapter(inflater,event));
         }
         dataUpdated();
     }
 
     @Subscribe
-    public void onNearbyPlacesListUpdate(Pair<Event, NearbyPlacesList> places) {
+    public void onNearbyPlacesListUpdate(Pair<MeetupEvent, NearbyPlacesList> places) {
         for (MeetupMergeAdapter meetupMergeAdapter : data) {
             if (meetupMergeAdapter.getItem(0).equals(places.first)) {
                 meetupMergeAdapter.updateData(places.second);

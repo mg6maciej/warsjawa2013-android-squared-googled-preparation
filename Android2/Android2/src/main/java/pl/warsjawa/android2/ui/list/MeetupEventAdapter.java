@@ -1,30 +1,28 @@
 package pl.warsjawa.android2.ui.list;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import pl.warsjawa.android2.model.meetup.Event;
+import pl.warsjawa.android2.model.meetup.MeetupEvent;
 
 /**
 * Created by krzysztofsiejkowski on 10/6/13.
 */
-class MeetupEventAdapter implements ItemAdapter<Event> {
+class MeetupEventAdapter implements ItemAdapter<MeetupEvent> {
 
     public static final int TYPE = 0;
 
     private MeetupEventItem eventItem;
-    private Event event;
+    private MeetupEvent event;
 
-    MeetupEventAdapter(Event event) {
+    MeetupEventAdapter(MeetupEvent event) {
         this.event = event;
     }
 
     @Override
-    public Event getItem() {
+    public MeetupEvent getItem() {
         return event;
     }
 

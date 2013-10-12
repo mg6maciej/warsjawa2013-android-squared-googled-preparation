@@ -7,12 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
@@ -20,8 +17,7 @@ import pl.warsjawa.android2.R;
 import pl.warsjawa.android2.event.EventBus;
 import pl.warsjawa.android2.model.gmapsapi.GmapsModel;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlacesList;
-import pl.warsjawa.android2.model.meetup.Event;
-import pl.warsjawa.android2.model.meetup.EventList;
+import pl.warsjawa.android2.model.meetup.MeetupEvent;
 import pl.warsjawa.android2.model.meetup.MeetupModel;
 import pl.warsjawa.android2.ui.BaseFragment;
 
@@ -55,11 +51,11 @@ public class MeetupListFragment extends BaseFragment {
         meetupsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (meetupListAdapter.getItem(position) instanceof Event) {
+                if (meetupListAdapter.getItem(position) instanceof MeetupEvent) {
                     meetupListAdapter.toogleExpand(position);
-                    Event event = (Event) meetupListAdapter.getItem(position);
+                    MeetupEvent event = (MeetupEvent) meetupListAdapter.getItem(position);
                     LatLng pos = event.getVenue().getLatLng();
-                    meetupListAdapter.onNearbyPlacesListUpdate(new Pair<Event, NearbyPlacesList>(event, null));
+                    meetupListAdapter.onNearbyPlacesListUpdate(new Pair<MeetupEvent, NearbyPlacesList>(event, null));
                     gmapsModel.requestNearbyPlacesList(event);
                 }
             }

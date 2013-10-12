@@ -1,6 +1,5 @@
 package pl.warsjawa.android2.ui.map;
 
-import android.util.Log;
 import android.util.Pair;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -20,12 +19,12 @@ import pl.warsjawa.android2.event.ShowNearbyPlacesEvent;
 import pl.warsjawa.android2.model.gmapsapi.GmapsModel;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlace;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlacesList;
-import pl.warsjawa.android2.model.meetup.Event;
+import pl.warsjawa.android2.model.meetup.MeetupEvent;
 
 public class NearbyPlacesDisplayer {
 
     private GoogleMap map;
-    private Event currentEvent;
+    private MeetupEvent currentEvent;
     private Map<Marker, NearbyPlace> markerNearbyPlaceMap;
     @Inject
     EventBus bus;
@@ -47,7 +46,7 @@ public class NearbyPlacesDisplayer {
 
     @Subscribe
     public void onEvent(ShowNearbyPlacesEvent showNearbyPlacesEvent) {
-        Event event = showNearbyPlacesEvent.getEvent();
+        MeetupEvent event = showNearbyPlacesEvent.getEvent();
         NearbyPlacesList nearbyPlacesList = gmapsModel.getNearbyPlacesList(event);
         if (nearbyPlacesList == null) {
             currentEvent = null;
@@ -60,11 +59,11 @@ public class NearbyPlacesDisplayer {
     }
 
     @Subscribe
-    public void onNearbyPlacesUpdate(Pair<Event,NearbyPlacesList> places) {
+    public void onNearbyPlacesUpdate(Pair<MeetupEvent,NearbyPlacesList> places) {
         displayNearbyPlaces(places.first);
     }
 
-    private void displayNearbyPlaces(Event event) {
+    private void displayNearbyPlaces(MeetupEvent event) {
         if (event.equals(currentEvent)) {
             return;
         }

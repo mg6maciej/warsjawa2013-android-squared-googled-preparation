@@ -1,6 +1,6 @@
 package pl.warsjawa.android2.model.meetup;
 
-public class Event  {
+public class MeetupEvent {
 
     private Group group;
     private String name;

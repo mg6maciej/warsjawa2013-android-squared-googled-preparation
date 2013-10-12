@@ -1,7 +1,5 @@
 package pl.warsjawa.android2.model.meetup;
 
-import com.squareup.otto.Produce;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -16,7 +14,7 @@ public class MeetupModel {
 
     private final EventBus bus;
     private final MeetupClient meetupClient;
-    private EventList myEventList;
+    private MeetupEventList myEventList;
 
     @Inject
     public MeetupModel(EventBus bus, MeetupClient meetupClient) {
@@ -24,11 +22,11 @@ public class MeetupModel {
         this.meetupClient = meetupClient;
     }
 
-    public EventList getEventList() {
+    public MeetupEventList getEventList() {
         if (myEventList == null) {
-            Callback<EventList> groupListCallback = new Callback<EventList>() {
+            Callback<MeetupEventList> groupListCallback = new Callback<MeetupEventList>() {
                 @Override
-                public void success(EventList eventList, Response response) {
+                public void success(MeetupEventList eventList, Response response) {
                     myEventList = eventList;
                     bus.post(eventList);
                 }

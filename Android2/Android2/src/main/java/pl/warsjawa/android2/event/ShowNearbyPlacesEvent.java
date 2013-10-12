@@ -1,16 +1,16 @@
 package pl.warsjawa.android2.event;
 
-import pl.warsjawa.android2.model.meetup.Event;
+import pl.warsjawa.android2.model.meetup.MeetupEvent;
 
 public class ShowNearbyPlacesEvent {
 
-    private final Event event;
+    private final MeetupEvent event;
 
-    public ShowNearbyPlacesEvent(Event event) {
+    public ShowNearbyPlacesEvent(MeetupEvent event) {
         this.event = event;
     }
 
-    public Event getEvent() {
+    public MeetupEvent getEvent() {
         return event;
     }
 }

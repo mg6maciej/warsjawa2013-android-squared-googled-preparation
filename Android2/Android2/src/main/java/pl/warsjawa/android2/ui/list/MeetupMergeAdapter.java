@@ -1,19 +1,16 @@
 package pl.warsjawa.android2.ui.list;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
-import com.google.android.gms.internal.p;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlace;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlacesList;
-import pl.warsjawa.android2.model.meetup.Event;
+import pl.warsjawa.android2.model.meetup.MeetupEvent;
 
 /**
 * Created by krzysztofsiejkowski on 10/6/13.
@@ -38,9 +35,9 @@ class MeetupMergeAdapter extends BaseAdapter {
         data.clear();
         data.add(retain);
 
-        if (obj instanceof Event) {
+        if (obj instanceof MeetupEvent) {
 
-            data.set(0, new MeetupEventAdapter((Event) obj));
+            data.set(0, new MeetupEventAdapter((MeetupEvent) obj));
 
         } else if (obj instanceof NearbyPlacesList) {
 
