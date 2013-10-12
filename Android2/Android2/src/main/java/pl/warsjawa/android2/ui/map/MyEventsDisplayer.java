@@ -31,14 +31,17 @@ public class MyEventsDisplayer {
     public void setUpMap(final GoogleMap map) {
         this.map = map;
         this.markerEventMap = new HashMap<Marker, MeetupEvent>();
-        this.map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+        this.map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-            public void onInfoWindowClick(Marker marker) {
+            public boolean onMarkerClick(Marker marker) {
                 MeetupEvent event = markerEventMap.get(marker);
-                if (event == null) {
-                    return;
+                if (event != null) {
+                    bus.post(new ShowNearbyPlacesEvent(event));
+                    marker.showInfoWindow();
+                    return true;
+                } else {
+                    return false;
                 }
-                bus.post(new ShowNearbyPlacesEvent(event));
             }
         });
         displayMyEvents();
