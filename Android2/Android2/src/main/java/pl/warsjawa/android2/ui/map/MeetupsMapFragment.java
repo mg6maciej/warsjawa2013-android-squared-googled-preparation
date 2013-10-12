@@ -36,8 +36,6 @@ public class MeetupsMapFragment extends BaseFragment {
     MyEventsDisplayer eventsDisplayer;
     @Inject
     NearbyPlacesDisplayer nearbyPlacesDisplayer;
-    @Inject
-    GoogleClient googleClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,21 +88,5 @@ public class MeetupsMapFragment extends BaseFragment {
         mapPositionRestorer.restorePreviousPosition(map);
         eventsDisplayer.setUpMap(map);
         nearbyPlacesDisplayer.setUpMap(map);
-        // TODO: just for test, to be removed
-        googleClient.getDirections(new LatLng(51, 19), new LatLng(51, 20), false, new Callback<RouteList>() {
-            @Override
-            public void success(RouteList routeList, Response response) {
-                PolylineOptions polylineOptions = new PolylineOptions();
-                for (Step step : routeList.getRoutes().get(0).getLegs().get(0).getSteps()) {
-                    List<LatLng> latLngList = step.getPolyline().toList();
-                    polylineOptions.addAll(latLngList);
-                }
-                map.addPolyline(polylineOptions);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-            }
-        });
     }
 }
