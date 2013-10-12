@@ -37,8 +37,6 @@ public class MeetupsMapFragment extends BaseFragment {
     @Inject
     NearbyPlacesDisplayer nearbyPlacesDisplayer;
     @Inject
-    MapPositionAdder mapPositionAdder;
-    @Inject
     GoogleClient googleClient;
 
     @Override
@@ -92,7 +90,6 @@ public class MeetupsMapFragment extends BaseFragment {
         mapPositionRestorer.restorePreviousPosition(map);
         eventsDisplayer.setUpMap(map);
         nearbyPlacesDisplayer.setUpMap(map);
-        mapPositionAdder.setUpMap(map);
         // TODO: just for test, to be removed
         googleClient.getDirections(new LatLng(51, 19), new LatLng(51, 20), false, new Callback<RouteList>() {
             @Override
