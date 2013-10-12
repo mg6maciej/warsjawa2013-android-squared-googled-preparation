@@ -69,10 +69,11 @@ class MeetupListAdapter extends BaseAdapter {
     }
 
     @Subscribe
-    public void onNearbyPlacesListUpdate(Pair<LatLng, NearbyPlacesList> places) {
+    public void onNearbyPlacesListUpdate(Pair<Event, NearbyPlacesList> places) {
         for (MeetupMergeAdapter meetupMergeAdapter : data) {
-            if (((Event) meetupMergeAdapter.getItem(0)).getVenue().compareLatLng(places.first))
+            if (meetupMergeAdapter.getItem(0).equals(places.first)) {
                 meetupMergeAdapter.updateData(places.second);
+            }
         }
         dataUpdated();
     }

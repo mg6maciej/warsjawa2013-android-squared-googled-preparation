@@ -57,9 +57,10 @@ public class MeetupListFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (meetupListAdapter.getItem(position) instanceof Event) {
                     meetupListAdapter.toogleExpand(position);
-                    LatLng pos = ((Event) meetupListAdapter.getItem(position)).getVenue().getLatLng();
-                    meetupListAdapter.onNearbyPlacesListUpdate(new Pair<LatLng, NearbyPlacesList>(pos, null));
-                    gmapsModel.requestNearbyPlacesList(pos);
+                    Event event = (Event) meetupListAdapter.getItem(position);
+                    LatLng pos = event.getVenue().getLatLng();
+                    meetupListAdapter.onNearbyPlacesListUpdate(new Pair<Event, NearbyPlacesList>(event, null));
+                    gmapsModel.requestNearbyPlacesList(event);
                 }
             }
         });

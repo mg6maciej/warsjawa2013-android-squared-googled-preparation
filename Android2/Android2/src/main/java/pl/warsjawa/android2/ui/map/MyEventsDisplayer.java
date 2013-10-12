@@ -11,6 +11,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.otto.Subscribe;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import pl.warsjawa.android2.event.EventBus;
@@ -24,6 +27,7 @@ import pl.warsjawa.android2.model.meetup.MeetupModel;
 public class MyEventsDisplayer {
 
     private GoogleMap map;
+    private Map<Marker, Event> markerEventMap;
     @Inject
     MeetupModel model;
     @Inject
@@ -33,16 +37,21 @@ public class MyEventsDisplayer {
 
     public void setUpMap(final GoogleMap map) {
         this.map = map;
+        this.markerEventMap = new HashMap<Marker, Event>();
         this.map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
+                Event event = markerEventMap.get(marker);
+                if (event == null) {
+                    return;
+                }
                 Log.i("tag", "marker = " + marker.getPosition());
-                NearbyPlacesList nearbyPlacesList = gmapsModel.getNearbyPlacesList(marker.getPosition());
+                NearbyPlacesList nearbyPlacesList = gmapsModel.getNearbyPlacesList(event);
                 if (nearbyPlacesList == null) {
-                    gmapsModel.requestNearbyPlacesList(marker.getPosition());
+                    gmapsModel.requestNearbyPlacesList(event);
                 }
                 else {
-                    displayNearbyPlaces(marker.getPosition());
+                    displayNearbyPlaces(event);
                 }
             }
         });
@@ -64,24 +73,33 @@ public class MyEventsDisplayer {
     }
 
     @Subscribe
-    public void onNearbyPlacesUpdate(Pair<LatLng,NearbyPlacesList> places) {
+    public void onNearbyPlacesUpdate(Pair<Event,NearbyPlacesList> places) {
         displayNearbyPlaces(places.first);
     }
 
     private void displayMyEvents() {
         if (map != null) {
+            clearEvents();
             EventList myEvents = model.getEventList();
             if (myEvents != null) {
                 for (Event event : myEvents.getResults()) {
-                    map.addMarker(new MarkerOptions().title(event.getName()).snippet(event.getGroup().getName()).position(event.getVenue().getLatLng()));
+                    Marker marker = map.addMarker(new MarkerOptions().title(event.getName()).snippet(event.getGroup().getName()).position(event.getVenue().getLatLng()));
+                    markerEventMap.put(marker, event);
                 }
             }
         }
     }
 
-    private void displayNearbyPlaces(LatLng position) {
+    private void clearEvents() {
+        for (Marker marker : markerEventMap.keySet()) {
+            marker.remove();
+        }
+        markerEventMap.clear();
+    }
+
+    private void displayNearbyPlaces(Event event) {
         BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
-        NearbyPlacesList nearbyPlacesList = gmapsModel.getNearbyPlacesList(position);
+        NearbyPlacesList nearbyPlacesList = gmapsModel.getNearbyPlacesList(event);
         if (nearbyPlacesList != null) {
             for (NearbyPlace place : nearbyPlacesList.getResults()) {
                 map.addMarker(new MarkerOptions().position(place.getLocation()).title(place.getName()).icon(icon));
