@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import pl.warsjawa.android2.event.EventBus;
+import pl.warsjawa.android2.event.ShowNearbyPlacesEvent;
 import pl.warsjawa.android2.model.gmapsapi.GmapsModel;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlace;
 import pl.warsjawa.android2.model.gmapsapi.nearby.NearbyPlacesList;
@@ -45,14 +46,7 @@ public class MyEventsDisplayer {
                 if (event == null) {
                     return;
                 }
-                Log.i("tag", "marker = " + marker.getPosition());
-                NearbyPlacesList nearbyPlacesList = gmapsModel.getNearbyPlacesList(event);
-                if (nearbyPlacesList == null) {
-                    gmapsModel.requestNearbyPlacesList(event);
-                }
-                else {
-                    displayNearbyPlaces(event);
-                }
+                bus.post(new ShowNearbyPlacesEvent(event));
             }
         });
         displayMyEvents();
@@ -70,11 +64,6 @@ public class MyEventsDisplayer {
     @Subscribe
     public void onMyEventsUpdate(EventList myEventList) {
         displayMyEvents();
-    }
-
-    @Subscribe
-    public void onNearbyPlacesUpdate(Pair<Event,NearbyPlacesList> places) {
-        displayNearbyPlaces(places.first);
     }
 
     private void displayMyEvents() {
@@ -95,15 +84,5 @@ public class MyEventsDisplayer {
             marker.remove();
         }
         markerEventMap.clear();
-    }
-
-    private void displayNearbyPlaces(Event event) {
-        BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
-        NearbyPlacesList nearbyPlacesList = gmapsModel.getNearbyPlacesList(event);
-        if (nearbyPlacesList != null) {
-            for (NearbyPlace place : nearbyPlacesList.getResults()) {
-                map.addMarker(new MarkerOptions().position(place.getLocation()).title(place.getName()).icon(icon));
-            }
-        }
     }
 }

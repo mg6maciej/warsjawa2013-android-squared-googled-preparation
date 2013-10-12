@@ -35,6 +35,8 @@ public class MeetupsMapFragment extends BaseFragment {
     @Inject
     MyEventsDisplayer eventsDisplayer;
     @Inject
+    NearbyPlacesDisplayer nearbyPlacesDisplayer;
+    @Inject
     MapPositionAdder mapPositionAdder;
     @Inject
     GoogleClient googleClient;
@@ -54,6 +56,7 @@ public class MeetupsMapFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         eventsDisplayer.registerForMyEventsUpdate();
+        nearbyPlacesDisplayer.registerForEvents();
         setUpMapIfNeeded();
     }
 
@@ -61,6 +64,7 @@ public class MeetupsMapFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         eventsDisplayer.unregisterFromMyEventsUpdate();
+        nearbyPlacesDisplayer.unregisterFromEvents();
         mapPositionRestorer.saveCurrentPosition();
     }
 
@@ -87,6 +91,7 @@ public class MeetupsMapFragment extends BaseFragment {
     private void setUpMap() {
         mapPositionRestorer.restorePreviousPosition(map);
         eventsDisplayer.setUpMap(map);
+        nearbyPlacesDisplayer.setUpMap(map);
         mapPositionAdder.setUpMap(map);
         // TODO: just for test, to be removed
         googleClient.getDirections(new LatLng(51, 19), new LatLng(51, 20), false, new Callback<RouteList>() {
