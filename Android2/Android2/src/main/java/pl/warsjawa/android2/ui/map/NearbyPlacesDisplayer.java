@@ -2,9 +2,12 @@ package pl.warsjawa.android2.ui.map;
 
 import android.util.Pair;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.otto.Subscribe;
@@ -72,10 +75,14 @@ public class NearbyPlacesDisplayer {
         NearbyPlacesList nearbyPlacesList = gmapsModel.getNearbyPlacesList(event);
         if (nearbyPlacesList != null) {
             BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
+            LatLngBounds.Builder builder = LatLngBounds.builder();
             for (NearbyPlace place : nearbyPlacesList.getResults()) {
-                Marker marker = map.addMarker(new MarkerOptions().position(place.getLocation()).title(place.getName()).icon(icon));
+                LatLng location = place.getLocation();
+                Marker marker = map.addMarker(new MarkerOptions().position(location).title(place.getName()).icon(icon));
                 markerNearbyPlaceMap.put(marker, place);
+                builder.include(location);
             }
+            map.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 30));
         }
     }
 
