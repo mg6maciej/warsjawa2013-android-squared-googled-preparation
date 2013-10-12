@@ -1,5 +1,6 @@
 package pl.warsjawa.android2.ui.map;
 
+import android.util.Log;
 import android.util.Pair;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -37,6 +38,15 @@ public class NearbyPlacesDisplayer {
     public void setUpMap(GoogleMap map) {
         this.map = map;
         this.markerNearbyPlaceMap = new HashMap<Marker, NearbyPlace>();
+        this.map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                NearbyPlace place = markerNearbyPlaceMap.get(marker);
+                if (currentEvent != null && place != null) {
+                    Log.i("tag", currentEvent.getId() + " " + place.getId());
+                }
+            }
+        });
     }
 
     public void registerForEvents() {

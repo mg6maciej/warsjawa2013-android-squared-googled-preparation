@@ -30,6 +30,7 @@ public class MeetupClient {
                 .setClient(new OkClient(new OkHttpClient()))
                 .setRequestInterceptor(createRequestInterceptor())
                 .setErrorHandler(ErrorHandler.DEFAULT)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
         meetupApi = restAdapter.create(MeetupApi.class);

@@ -9,6 +9,10 @@ public class NearbyPlace {
     private String name;
     private Double rating;
 
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
